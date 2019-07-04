@@ -13,11 +13,11 @@ import java.io.*;
  */
 public class game_panel
 {
-    public static double choiceBoxSize = 140;
-    public static double choiceX = 327;
-    public static double choice1Y = 132;
-    public static double choice2Y = 322;
-    public static double choice3Y = 537;
+    public static double CHOICE_BOX_SIZE = 140;
+    public static double CHOICE_X = 327;
+    public static double CHOICE_1_Y = 132;
+    public static double CHOICE_2_Y = 322;
+    public static double CHOICE_3_Y = 537;
     // instance variables - replace the example below with your own
     private String option1;
     private String option2;
@@ -34,9 +34,16 @@ public class game_panel
     private boolean activate = false;
     private boolean go = false;
     private boolean end = false;
-    private BufferedImage img = null;
+    // private BufferedImage img = null;
 
     public void startGame() {
+        UI.clearGraphics();
+        picked = null;
+        initial = true;
+        pickedOutfit = false;
+        activate = false;
+        go = false;
+        end= false;
         draw();
         initialPicker();
     }
@@ -229,27 +236,27 @@ public class game_panel
         }
     }
 
-    /**
-     * enables user to save their friend if wants to
-     */
-    public void save() {
-        try {
-            // retrieve image
-            BufferedImage image = img;
-            String name = UIFileChooser.save("Save your friend?");
-            File outputfile = new File(name);
-            ImageIO.write(image, "png", outputfile);
-        } catch (IOException e) {
-        }
+    // /**
+    // * enables user to save their friend if wants to
+    // */
+    // public void save() {
+    // try {
+    // // retrieve image
+    // BufferedImage image = img;
+    // String name = UIFileChooser.save("Save your friend?");
+    // File outputfile = new File(name);
+    // ImageIO.write(image, "png", outputfile);
+    // } catch (IOException e) {
+    // }
 
-    }
+    // }
 
-    public void load() {
-        try {
-            img = ImageIO.read(new File(picked + ".png"));
-        } catch (IOException e) {
-        }
-    }
+    // public void load() {
+    // try {
+    // img = ImageIO.read(new File(picked + ".png"));
+    // } catch (IOException e) {
+    // }
+    // }
 
     /**
      * checks if the current mouse click is on one of the 'buttons'
@@ -289,7 +296,7 @@ public class game_panel
     }
 
     public void drawFinish() {
-        UI.drawImage("bgfinish.png",0,0,1000,750);
+        UI.drawImage("bgfinishnosave.png",0,0,1000,750);
         UI.fillRect(343, 253, 304, 304);
         UI.drawImage(picked + ".png", 345, 255, 300, 300);
     }
@@ -302,21 +309,21 @@ public class game_panel
             mouseX = x;
             mouseY = y;
             if (!end) {
-                if (checkClick(choiceX, choice1Y, choiceX + choiceBoxSize, choice1Y + choiceBoxSize)) {
+                if (checkClick(CHOICE_X, CHOICE_1_Y, CHOICE_X + CHOICE_BOX_SIZE, CHOICE_1_Y + CHOICE_BOX_SIZE)) {
                     picked = image1;
                     choice = 1;
                     if (activate) {
                         go = true;
                     }
                 }
-                else if (checkClick(choiceX, choice2Y, choiceX + choiceBoxSize, choice2Y + choiceBoxSize)) {
+                else if (checkClick(CHOICE_X, CHOICE_2_Y, CHOICE_X + CHOICE_BOX_SIZE, CHOICE_2_Y + CHOICE_BOX_SIZE)) {
                     picked = image2;
                     choice = 2;
                     if (activate) {
                         go = true;
                     }
                 } 
-                else if (checkClick(choiceX, choice3Y, choiceX + choiceBoxSize, choice3Y + choiceBoxSize)) {
+                else if (checkClick(CHOICE_X, CHOICE_3_Y, CHOICE_X + CHOICE_BOX_SIZE, CHOICE_3_Y + CHOICE_BOX_SIZE)) {
                     if (image3 != null) {
                         picked = image3;
                         choice = 3;
@@ -353,12 +360,13 @@ public class game_panel
                     }
                 }
                 draw();
-            }
-            else {
-                if (checkClick(375, 630, 625, 465)) {
-                    load();
-                    save();
-                }
+                // }
+                // else {
+                // if (checkClick(375, 630, 625, 465)) {
+                // load();
+                // save();
+                // }
+                // }
             }
         }
     }
