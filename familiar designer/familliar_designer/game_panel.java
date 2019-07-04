@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import javax.imageio.ImageIO;
 import java.io.*;
-
+import javax.swing.JApplet;
 /**
  * Write a description of class game_panel here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class game_panel
+public class game_panel extends JApplet
 {
     public static double CHOICE_BOX_SIZE = 140;
     public static double CHOICE_X = 327;
@@ -371,8 +371,8 @@ public class game_panel
             }
         }
     }
-
-    public static void main(String[] arguments){
+    
+    public void init() {
         game_panel pan = new game_panel();
         UI.initialise();
         UI.setMouseListener(pan::doMouse);
@@ -381,4 +381,14 @@ public class game_panel
         UI.addButton("Start", pan::startGame);
         UI.addButton("Quit", UI::quit);
     }
+
+    // public static void main(String[] arguments){
+        // game_panel pan = new game_panel();
+        // UI.initialise();
+        // UI.setMouseListener(pan::doMouse);
+        // UI.setDivider(0);
+        // UI.setWindowSize(1000,750);
+        // UI.addButton("Start", pan::startGame);
+        // UI.addButton("Quit", UI::quit);
+    // }
 }
